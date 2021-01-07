@@ -13,11 +13,9 @@ import (
 
 func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	hh := handlers.NewHello(l)
-	gh := handlers.NewGoodbye(l)
+	ph := handlers.NewProducts(l)
 	sm := http.NewServeMux()
-	sm.Handle("/", hh)
-	sm.Handle("/goodbye", gh)
+	sm.Handle("/", ph)
 
 	s := &http.Server{
 		Addr:         ":9090",
@@ -42,6 +40,9 @@ func main() {
 	l.Println("Received terminate, graceful shutdown", sig)
 
 	s.ListenAndServe()
-	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	tc, err := context.WithTimeout(context.Background(), 30*time.Second)
+	if err != nil {
+		l.Println("Error creating context")
+	}
 	s.Shutdown(tc)
 }
