@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/PetrNovak96/godemo/data"
+	"github.com/PetrNovak96/godemo/product-api/data"
 	"github.com/gorilla/mux"
 )
 
@@ -63,6 +63,7 @@ func NewProducts(l *log.Logger) *Products {
 //	200: productsResponse
 func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
+	p.l.Println("volani")
 	err := lp.ToJSON(rw)
 	if err != nil {
 		http.Error(rw, "Error writing product list", http.StatusInternalServerError)

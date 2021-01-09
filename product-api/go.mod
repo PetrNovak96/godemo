@@ -1,4 +1,4 @@
-module github.com/PetrNovak96/godemo
+module github.com/PetrNovak96/godemo/product-api
 
 go 1.13
 
